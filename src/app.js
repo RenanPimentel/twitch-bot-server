@@ -9,6 +9,15 @@ const app = express();
 
 const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET } = process.env;
 
+app.get('/', async (req, res) => {
+  try {
+    const post = await axios.post(`${twUrl}?client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials`);
+    res.send(post.data);
+  } catch (e) {
+    console.log(e);
+  }
+})
+
 app.post('/api/v1/twitch', async (req, res) => {
   try {
     const post = await axios.post(`${twUrl}?client_id=${TWITCH_CLIENT_ID}&client_secret=${TWITCH_CLIENT_SECRET}&grant_type=client_credentials`);
